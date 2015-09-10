@@ -13,37 +13,38 @@
 
 static void *child(void *ignored)
 {
-    sleep(3);
-    printf("Child is done sleeping 3 seconds. \n");
+    int x = 1;
+    
+    while (x == 1)
+    {
+    sleep(5);
+    printf("Child is done sleeping 5 seconds. \n");
+    }
     return NULL;
 }
 
 int main(int argc, char *argv[]) 
 {
-    char input;
-    int x = 1;
+    int y = 1;
     pthread_t child_thread;
     int code;
+    char ch;
     
     code = pthread_create(&child_thread, NULL, child, NULL);
-    if (scanf("%c"))
-    {
-    while (x == 1)
-    {
-        if (code)
-        {
-            fprintf(stderr, "pthread_create failed with code %d\n", code);
-        }
-        sleep(5);
         
-        printf("Parent is done sleeping (5 Seconds.) \n");
-        if (input != NULL)
-        {
-            x = 2;
-        }
-    }
+    if (code)
+    {
+        fprintf(stderr, "pthread_create failed with code %d\n", code);
     }
     
+    while (y == 1)
+    {
+        scanf("%c", &ch);
+        if (ch == 13)
+        {
+            pthread_cancel(child);
+            y = 0;
+        }
+    }
     return 0;
 }
-
