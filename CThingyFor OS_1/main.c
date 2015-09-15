@@ -40,8 +40,9 @@ int main(int argc, char *argv[])
     while (y == 1)
     {
         scanf("%c", &ch);
-        if (ch == 13)
+        if (ch == '\n')
         {
+            printf("Canceled");
             pthread_cancel(child);
             y = 0;
         }
